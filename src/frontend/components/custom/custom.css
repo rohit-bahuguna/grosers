@@ -1,0 +1,18 @@
+.label {
+}
+
+.label::after {
+  content: "*";
+  color: red;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+input {
+    border-radius: 5px;
+    height: 3.5vh;
+    width: 18vw;
+}

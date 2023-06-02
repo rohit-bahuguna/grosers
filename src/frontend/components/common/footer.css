@@ -1,0 +1,26 @@
+.footer-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	min-height: 25vh;
+	background-color: #232f3e;
+	color: white;
+	padding: 1.5rem;
+}
+
+.all-list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.footer-heading {
+	margin-bottom: 0.5rem;
+}
+.contact {
+	color: rgb(61, 169, 247);
+}
+
+.contact:hover {
+	cursor: pointer;
+}
