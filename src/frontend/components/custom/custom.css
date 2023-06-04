@@ -2,17 +2,27 @@
 }
 
 .label::after {
-  content: "*";
-  color: red;
+	content: "*";
+	color: red;
 }
 
 .input {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
 }
 input {
-    border-radius: 5px;
-    height: 3.5vh;
-    width: 18vw;
+	border-radius: 5px;
+	height: 5vh;
+	width: 20vw;
+	padding-left: 0.5rem;
+	font-size: 1rem;
 }
+
+.error {
+	color: red;
+}
+
+/* .login-buttons {
+	display: flex;
+} */

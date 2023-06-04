@@ -1,0 +1,116 @@
+/* Filter Sidebar Style */
+.filter-bar {
+	border-right: 1px dotted gray;
+	padding: 1rem;
+	width: 21vw;
+	overflow-y: scroll;
+}
+
+.slider {
+	width: 18vw;
+}
+
+/* .filter-container {
+	display: flex;
+	flex-direction: column;
+	width: 270px;
+	height: 100%;
+	border-right: 1px solid var(--lightGrey);
+	padding: 1rem 2rem;
+	gap: 2rem;
+	position: fixed;
+	left: 0;
+	overflow-y: auto;
+	z-index: 5;
+	background-color: var(--lynxWhite);
+	padding-bottom: 80px;
+}
+
+.filter-container > div > h4 {
+	margin-bottom: 1rem;
+} */
+
+.filter-head,
+.price-range {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+
+.filter-head .paragraph-md {
+	text-decoration: underline;
+}
+
+.check-desc {
+	font-size: 0.8rem;
+	margin-left: 0.5rem;
+}
+
+.price-range {
+	color: var(--default);
+}
+
+.filter-container label,
+input[type="range"] {
+	cursor: pointer;
+}
+
+.clr-flt-btn {
+	cursor: pointer;
+}
+
+.clr-flt-btn:hover {
+	color: #18181859;
+}
+
+.select-category {
+	/* border: 1px solid red; */
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+.checkbox-input {
+	width: 0.9rem;
+}
+.categoryName {
+	/* border: 1px solid red; */
+	padding: 0.5rem;
+	display: flex;
+	align-items: center;
+	gap: 0.1rem;
+}
+.categoryName:hover {
+	color: rgb(0, 110, 255);
+	cursor: pointer;
+}
+.up-down-icon {
+	display: inline;
+	font-size: 1.5rem;
+}
+
+.up-down-icon:hover {
+	background-color: rgb(235, 233, 233);
+	border-radius: 50%;
+}
+
+@media screen and (max-width: 950px) {
+	.trans-on {
+		left: 0;
+		transition: left 0.5s ease-out;
+	}
+
+	.trans-off {
+		left: -30.875rem;
+		transition: left 0.5s ease-out;
+	}
+
+	.drawer-hamberg-btn {
+		display: block;
+	}
+}
+
+@media screen and (max-width: 630px) {
+	.filter-container {
+		width: 220px;
+	}
+}

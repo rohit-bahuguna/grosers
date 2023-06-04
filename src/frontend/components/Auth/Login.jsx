@@ -5,6 +5,7 @@ import Button from "../custom/Button";
 import { validateUserData } from "../../services/validation/signInValidater";
 import { signInService } from "../../services/API/Auth/auth_API";
 import "./auth.css";
+import { Link } from "react-router-dom";
 const LogIn = () => {
   const initialErrors = {
     passwordError: { message: "", error: false },
@@ -30,13 +31,13 @@ const LogIn = () => {
       try {
         setLoading(true);
         const { data } = await signInService(userData);
-        console.log(data);
+
       } catch (error) {
         setLoading(false);
         console.log(error);
       }
     } else {
-      console.log(errors);
+
       setLoading(false);
       setError({ ...error, ...errors });
     }
@@ -46,7 +47,8 @@ const LogIn = () => {
     <Layout>
       <div className="signinouter">
         <div className="signinner">
-          <h2 className="signup">Log In</h2>
+
+          <h2 className="signup">Grosers</h2>
           <div className="signinform">
             <Input
               inputInfo={{
@@ -54,6 +56,7 @@ const LogIn = () => {
                 label: "Email",
                 callback: getUserData,
                 name: "email",
+                error: error.emailError
               }}
               style={""}
             />
@@ -63,12 +66,14 @@ const LogIn = () => {
                 label: "Password",
                 callback: getUserData,
                 name: "password",
+                error: error.passwordError
               }}
               className={""}
             />
 
+
             <Button
-              title={!loading ? "Sign In" : "Signing In"}
+              title={!loading ? "Log In" : "Logging In"}
               callback={userSignIn}
               style={"signinbtn"}
             />
@@ -77,7 +82,7 @@ const LogIn = () => {
               callback={userSignIn}
               style={"signinguest"}
             />
-            <p className="signinNewAccount">New here? Create account</p>
+            <p className="signinNewAccount">New here? <Link to="/signup"><span>Create account</span></Link> </p>
           </div>
         </div>
       </div>

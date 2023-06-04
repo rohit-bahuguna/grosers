@@ -1,86 +1,94 @@
 .signinouter {
-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .signinner {
-    border: 1px solid gray;
-    border-radius: 10px;
-    height: 50%;
-   padding: 15px;
-   width: 20%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	border: 2px solid gray;
+	border-radius: 10px;
+	height: fit-content;
+	padding: 0.8rem;
+	width: fit-content;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem;
 }
 
 .signinform {
-    display: flex;
-    flex-direction: column;
-   padding-left: 5px;
-   padding-right: 5px;
-    gap: 3vh;
+	display: flex;
+	flex-direction: column;
+	padding-left: 5px;
+	padding-right: 5px;
+	gap: 3vh;
 }
 
 .signup {
-
+	font-size: 2rem;
+	color: #ff8000;
+	margin-bottom: 1rem;
 }
 
-
 .signinbtn {
-    background-color: skyblue;
-    border-radius: 5px;
-    font-size: 20px;
+	background-color: #131921;
+	color: white;
+	border-radius: 5px;
+	font-size: 1.3rem;
+	width: 7vw;
+	padding: 0.4rem;
+	align-self: center;
 }
 
 .signinguest {
-    background-color: skyblue;
-    border-radius: 5px;
-    font-size:15px;
+	background-color: #131921;
+	color: white;
+	border-radius: 5px;
+	font-size: 1.3rem;
+	padding: 0.4rem;
+	align-self: center;
 }
 .signinNewAccount {
-
+	font-size: 1.1rem;
 }
 
+.signinNewAccount > span {
+	color: rgb(29, 20, 189);
+}
+
+/* 
 @media screen and (min-width: 100px) {
-    .signinner {
-        width: 90%;
-       
-    }
+	.signinner {
+		width: 90%;
+	}
 }
-
 
 @media screen and (min-width: 200px) {
-    .signinner {
-        width: 90%;
-    }
+	.signinner {
+		width: 90%;
+	}
 }
 
 @media screen and (min-width: 320px) {
-    .signinner {
-        width: 60%;
-    }
+	.signinner {
+		width: 60%;
+	}
 }
 
 @media screen and (min-width: 425px) {
-    .signinner {
-        width: 40%;
-    }
+	.signinner {
+		width: 40%;
+	}
 }
 
-
 @media screen and (min-width: 625px) {
-    .signinner {
-        width: 30%;
-    }
+	.signinner {
+		width: 30%;
+	}
 }
 
 @media screen and (min-width: 825px) {
-    .signinner {
-        width: 20%;
-    }
-}
-
-
+	.signinner {
+		width: 20%;
+	}
+} */

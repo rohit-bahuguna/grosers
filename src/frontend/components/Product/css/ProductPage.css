@@ -1,0 +1,172 @@
+.details-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	/* align-items: center; */
+
+	padding: 0.5rem 4rem 2rem 1rem;
+
+	width: 100vw;
+}
+
+.details-left {
+	width: 30vw;
+	/* border: 1px solid red; */
+	display: flex;
+	flex-direction: column;
+}
+
+.details-img {
+	width: 25rem;
+	height: 25rem;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	border-radius: 0.8rem;
+	object-fit: contain;
+	position: sticky;
+	top: 12vh;
+}
+.details-add-to-cart {
+	display: flex;
+	gap: 0.5rem;
+	border-radius: 1rem;
+	align-self: center;
+	padding: 0.4rem 3rem;
+	margin: 1rem 0.2rem;
+	background-color: #232f3e;
+	color: white;
+	font-size: 1.4rem;
+	position: sticky;
+	top: 60vh;
+}
+
+.details-add-to-cart:hover {
+	cursor: pointer;
+	background-color: white;
+	color: #232f3e;
+	font-weight: bold;
+	padding: 0.4rem 2.8rem;
+}
+.details-cart-icon {
+	font-size: 1.5rem;
+}
+
+.details-right {
+	display: flex;
+	flex-direction: column;
+	gap: 1.2rem;
+	width: 70vw;
+	padding: 0rem 1rem;
+}
+.details-right-upper {
+	position: sticky;
+	top: 12vh;
+	background-color: white;
+}
+
+.details-title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.details-title-header {
+	font-size: 2rem;
+}
+
+.price {
+	display: flex;
+	gap: 1rem;
+	font-size: 1.2rem;
+}
+.MRP {
+	font-weight: bold;
+	font-size: 1.5rem;
+}
+
+.star-ratings {
+	color: rgb(255, 106, 0);
+	display: flex;
+	gap: 0.2rem;
+}
+
+.details-right .msg {
+	border-bottom: 1px solid lightgray;
+	padding-bottom: 1rem;
+}
+
+.tag-msg {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 1.1rem;
+}
+.description-info {
+	font-size: 1.3rem;
+	color: rgb(120, 116, 116);
+	margin-top: 0.5rem;
+}
+
+.tag {
+	color: #007bb5;
+}
+
+td {
+	font-size: 1.3rem;
+	padding: 0.4rem 0rem;
+}
+
+td p {
+	color: rgb(120, 116, 116);
+	margin-left: 1rem;
+}
+
+.details-right .add-cart {
+	width: 100%;
+	margin: 0px;
+}
+
+.details-right .wishlist-btn {
+	padding: 0.4rem 1rem;
+}
+
+.tag-msg .fa-tag {
+	color: var(--darkBlue);
+}
+
+@media screen and (max-width: 500px) {
+	.details {
+		padding: 1rem 0.5rem 5rem 0.5rem;
+		gap: 1rem;
+		box-shadow: none;
+		margin-top: 5rem;
+	}
+
+	.details-title {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border: 1px solid red;
+	}
+
+	.details-right .btn {
+		padding: 1rem;
+		height: 3.5rem;
+		border-radius: 0;
+		position: fixed;
+		bottom: 0;
+	}
+
+	.details-right .default {
+		position: fixed;
+		right: 0;
+		left: 50%;
+	}
+
+	.details-right .wishlist-btn {
+		left: 0;
+		right: 50%;
+
+		background-color: var(--default);
+		color: var(--white);
+	}
+}

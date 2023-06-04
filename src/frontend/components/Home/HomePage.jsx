@@ -5,14 +5,23 @@ import './Home.css';
 import { useProductData } from '../../contexts/productContext/productContext';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { ACTION_TYPE } from '../../utils';
 
 const HomePage = () => {
-  const { categories } = useProductData();
+  const { categories, dispatchData } = useProductData();
+
   const navigate = useNavigate();
   const categoryFilter = () => { };
   const [carouselImages, setcarouselImages] = useState([
     'essentials.jpg', 'Back-to-school_Banner_1500x300.gif', 'healtly.jpg', "mangomadness.jpg", 'supersaver.jpg'
   ])
+  const navigateToProductPage = (categoryName) => {
+    dispatchData({
+      type: ACTION_TYPE.SELECTED_CATEGORY,
+      payload: categoryName
+    });
+    navigate(`/products/${categoryName}`)
+  }
 
 
   return (
@@ -27,18 +36,19 @@ const HomePage = () => {
           />
         </div>
         <div className="home-cards">
-          {categories.map(({ categoryName, _id, banner }) => {
+          {categories.map(({ categoryName, _id, id, banner }) => {
             return (
               <div
                 key={_id}
                 onClick={() => categoryFilter('Men')}
                 className="card-container card-container-hz home-card-container card-container-shadow brd-rd-semi-sq">
-                <div className="card-img-container-hz home-card-img-container">
+                <div className="card-img-container-hz home-card-img-container"
+                  onClick={() => navigateToProductPage(categoryName)}>
                   <img className="banner-img" src={banner} alt="card image" />
                 </div>
                 <div>
                   <h3 className="card-content">
-                    {' '}{categoryName}
+                    {categoryName}
                   </h3>
                 </div>
               </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import "./footer.css"
+import "./css/footer.css"
 import { useProductData } from '../../contexts/productContext/productContext';
 
 const Footer = () => {
