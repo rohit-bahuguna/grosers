@@ -6,15 +6,14 @@ export const initialState = {
 	categories: [],
 	sortByRating: '',
 	products: [],
-	cart: [],
-	wishlist: [],
+
 	address: [],
 	search: '',
 	selectedCategory: '',
 	selectedSubCategories: []
 };
 //ischecked: false, showSubCategories:false
-export function dataReducer(state, action) {
+export function productReducer(state, action) {
 	const { type, payload } = action;
 	switch (type) {
 		case ACTION_TYPE.INITIAl_CATEGORIES:
@@ -81,26 +80,11 @@ export function dataReducer(state, action) {
 					),
 				categories: updatedCategory
 			};
-		case ACTION_TYPE.ADD_TO_CART:
-			return { ...state, cart: [...payload] };
 
-		case ACTION_TYPE.REMOVE_FROM_CART:
-			return { ...state, cart: [...payload] };
-
-		case ACTION_TYPE.UPDATE_QTY_IN_CART:
-			return { ...state, cart: [...payload] };
-		case ACTION_TYPE.CLEAR_CART:
-			return { ...state, cart: [] };
-
-		case ACTION_TYPE.ADD_TO_WISHLIST:
-			return { ...state, wishlist: [...payload] };
-
-		case ACTION_TYPE.REMOVE_FROM_WISHLIST:
-			return { ...state, wishlist: [...payload] };
 		case ACTION_TYPE.ADDRESS:
 			return { ...state, address: [...payload] };
 		case ACTION_TYPE.LOG_OUT:
-			return { ...state, cart: [], wishlist: [], address: [] };
+			return { ...state, address: [] };
 
 		case ACTION_TYPE.CLEAR_FILTER:
 

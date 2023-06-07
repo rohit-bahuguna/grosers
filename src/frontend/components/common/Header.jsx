@@ -8,10 +8,10 @@ import { CiLocationOn } from "react-icons/ci"
 // import { searchFilter } from '../../utils/utils';
 // import { useOutsideClickHandler } from '../../Hooks/outsideClickHandler';
 import { AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
-
+import { useCartData } from "../../contexts/cartContext/cartContext"
 export const Header = () => {
   const location = useLocation();
-
+  const { cart } = useCartData()
   const [input, setInput] = useState('');
   const [searchData, setSearchData] = useState([]);
 
@@ -76,7 +76,14 @@ export const Header = () => {
         <Link to="/login"><button className='nav-login'>Login</button></Link>
 
         <AiOutlineHeart className='nav-heart' />
-        <AiOutlineShoppingCart className='nav-cart' />
+        <div>
+          <Link to="/cart">
+            <AiOutlineShoppingCart className='nav-cart' />
+          </Link>
+          {
+            cart.length > 0 && <div className='total-cart'>{cart.length}</div>
+          }
+        </div>
       </div>
     </nav>
   );

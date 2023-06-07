@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { useOrder } from "../../../context/order/orderContext";
-import "./CouponModal.css";
+import { useOrder } from "../../contexts/orderContext/orderContext";
+import "./css/CouponModal.css";
 
 const COUPONS = [
   { couponName: "DIWALI_DHAMAKA", value: 50 },

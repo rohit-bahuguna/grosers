@@ -8,6 +8,8 @@ import MockMan from "mockman-js"
 import SignUp from "./frontend/components/Auth/SignUp";
 import { ProductListing } from "./frontend/components/Product/Product";
 import { ProductDetails } from "./frontend/components/Product/ProductDetails";
+import { Cart } from "./frontend/components";
+
 function App() {
   return (
     <>
@@ -19,6 +21,7 @@ function App() {
         <Route path="/products" element={<ProductListing />} />
         <Route path="/products/:category" element={<ProductListing />} />
         <Route path="/product-details/:productId" element={<ProductDetails />} />
+        <Route path="/cart" element={<Cart />} />
 
       </Routes>
     </>

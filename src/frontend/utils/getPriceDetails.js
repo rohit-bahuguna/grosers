@@ -1,7 +1,7 @@
 function getPriceDetails(myCart) {
   return myCart.reduce(
     ({ price, discount }, item) => {
-      price += item.originalPrice * item.qty;
+      price += item.price * item.quantity;
       discount += (item.originalPrice - item.price) * item.qty;
       return { price, discount };
     },

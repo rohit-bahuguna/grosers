@@ -102,7 +102,10 @@
 	font-weight: bold;
 	padding: 0.4rem 2.8rem;
 }
-.cart-icon {
+.add-to-cart-icon {
+	font-size: 1.5rem;
+}
+.go-to-cart-icon {
 	font-size: 1.5rem;
 }
 

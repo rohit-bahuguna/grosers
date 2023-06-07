@@ -69,6 +69,7 @@
 
 .nav-cart {
 	font-size: 2rem;
+	color: white;
 }
 
 .nav-link-item-btn {
@@ -147,6 +148,19 @@
 }
 .nav-output-smaller-img {
 	height: 6rem;
+}
+
+.total-cart {
+	font-size: 1.5rem;
+	color: #131921;
+	background-color: white;
+	border-radius: 50%;
+
+	text-align: center;
+	width: 2rem;
+	position: absolute;
+	top: 0.4rem;
+	right: 2.5rem;
 }
 @media screen and (max-width: 1000px) {
 	.nav-search {

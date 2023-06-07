@@ -10,13 +10,13 @@ import {
 	GetAllProducts
 } from '../../services/API/Product/product_API';
 import { ACTION_TYPE } from '../../utils/constant';
-import { initialState, dataReducer } from '../../reducer/ProductReducer';
+import { initialState, productReducer } from '../../reducer/ProductReducer';
 const productContext = createContext(null);
 
 const useProductData = () => useContext(productContext);
 const changeTitle = title => (document.title = `${title} - 'Grosers`);
 const ProductProvider = ({ children }) => {
-	const [state, dispatch] = useReducer(dataReducer, initialState);
+	const [state, dispatch] = useReducer(productReducer, initialState);
 
 	useEffect(() => {
 		(async () => {

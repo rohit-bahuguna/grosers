@@ -3,10 +3,13 @@ import Layout from "../common/Layout";
 import Input from "../custom/Input";
 import Button from "../custom/Button";
 import { validateUserData } from "../../services/validation/signInValidater";
-import { signInService } from "../../services/API/Auth/auth_API";
+
 import "./auth.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext/authContext";
 const LogIn = () => {
+
+  const { loginUser, token } = useAuth()
   const initialErrors = {
     passwordError: { message: "", error: false },
     emailError: { message: "", error: false },
@@ -15,6 +18,8 @@ const LogIn = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+  const location = useLocation();
   const [error, setError] = useState(initialErrors);
   const [loading, setLoading] = useState(false);
 
@@ -28,20 +33,36 @@ const LogIn = () => {
     const { success, errors } = validateUserData(userData);
 
     if (success) {
-      try {
-        setLoading(true);
-        const { data } = await signInService(userData);
-
-      } catch (error) {
-        setLoading(false);
-        console.log(error);
-      }
+      loginUser(userData)
     } else {
 
       setLoading(false);
       setError({ ...error, ...errors });
     }
   };
+
+  if (token) {
+    //  setLoader(true);
+    setTimeout(() => {
+      navigate(location?.state?.from || "/products", { replace: true });
+      // setLoader(false);
+    }, 500);
+  }
+
+
+  const signInAsGuest = (guestData) => {
+    const { success, errors } = validateUserData(guestData);
+
+    if (success) {
+      loginUser(guestData)
+    } else {
+
+      setLoading(false);
+      setError({ ...error, ...errors });
+    }
+  }
+
+
 
   return (
     <Layout>
@@ -79,7 +100,10 @@ const LogIn = () => {
             />
             <Button
               title={"Sign In as Guest"}
-              callback={userSignIn}
+              callback={() => signInAsGuest({
+                email: "adarshbalika@gmail.com",
+                password: "adarshbalika",
+              })}
               style={"signinguest"}
             />
             <p className="signinNewAccount">New here? <Link to="/signup"><span>Create account</span></Link> </p>

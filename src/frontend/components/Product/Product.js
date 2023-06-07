@@ -25,7 +25,7 @@ export function ProductListing() {
   } = useProductData();
 
 
-console.log("selectedSubCategories" , selectedSubCategories);
+
   const searchData = searchProduct([...products], search);
 
   const filteredByCatagory = filterDataByCatagory([...searchData], selectedCategory);

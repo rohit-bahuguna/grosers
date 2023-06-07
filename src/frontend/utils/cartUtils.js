@@ -5,6 +5,6 @@ const isProductInWishlist = (wishlist, id) =>
   wishlist?.find((wishlistProduct) => wishlistProduct._id === id);
 
 const isProductInCart = (cart, id) =>
-  cart?.find((cartProduct) => cartProduct._id === id);
+  cart?.find((cartProduct) => cartProduct.id === id);
 
 export { calcPercentage, isProductInWishlist, isProductInCart };

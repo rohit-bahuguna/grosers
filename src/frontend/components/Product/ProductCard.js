@@ -8,13 +8,15 @@ import {
 } from '../../utils/cartUtils';
 import './css/ProductCard.css';
 import { toast } from 'react-toastify';
-import { useProductData } from '../../contexts/productContext/productContext';
+import { BsCartCheck } from "react-icons/bs"
 import { AiOutlineShoppingCart, AiOutlineHeart } from 'react-icons/ai';
+import { useCartData } from '../../contexts/cartContext/cartContext';
+import { useAuth } from '../../contexts/AuthContext/authContext';
 
 export function ProductCard({ product }) {
-	const { dataDispatch, cart, wishlist } = useProductData();
+	const { cart, wishlist, addProductToCart } = useCartData();
 	const [btnDisabled, setBtnDisabled] = useState(false);
-
+	const { token } = useAuth();
 	const navigate = useNavigate();
 
 	const {
@@ -37,13 +39,13 @@ export function ProductCard({ product }) {
 	const isInCart = isProductInCart(cart, id);
 	const isInWishlist = isProductInWishlist(wishlist, id);
 
-	// const addToCartHandler = () => {
-	// 	token
-	// 		? isInCart
-	// 			? navigate('/cart')
-	// 			: addToCart(dataDispatch, product, token, toast, setBtnDisabled)
-	// 		: navigate('/login');
-	// };
+	const addToCartHandler = () => {
+		token
+			? isInCart
+				? navigate('/cart')
+				: addProductToCart(product, token)
+			: navigate('/login');
+	};
 
 	// const wishlistHandler = () => {
 	// 	token
@@ -93,13 +95,17 @@ export function ProductCard({ product }) {
 			<button
 				className="add-to-cart"
 				disabled={
-					btnDisabled // onClick={() => addToCartHandler()}
-				}>
-				<i className="fa fa-shopping-cart" />{' '}
+					btnDisabled
+				}
+				onClick={() => addToCartHandler()}
+			>
+
 				{isInCart
-					? 'Go to Cart'
+					? <span className="cart-text">
+						<BsCartCheck className="go-to-cart-icon" /> Go to Cart
+					</span>
 					: <span className="cart-text">
-						<AiOutlineShoppingCart className="cart-icon" /> Add to Cart
+						<AiOutlineShoppingCart className="add-to-cart-icon" /> Add to Cart
 					</span>}
 			</button>
 		</div>
