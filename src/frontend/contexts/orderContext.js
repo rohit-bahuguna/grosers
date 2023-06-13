@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer, useState } from "react";
-import { orderState, orderReducer } from "../../reducer/OrderReducer";
+import { orderState, orderReducer } from "../reducer/OrderReducer";
 
 const OrderContext = createContext();
 
@@ -26,6 +26,6 @@ const OrderProvider = ({ children }) => {
   );
 };
 
-const useOrder = () => useContext(OrderContext);
+const useOrderData = () => useContext(OrderContext);
 
-export { useOrder, OrderProvider };
+export { useOrderData, OrderProvider };

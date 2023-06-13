@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useOrder } from "../../contexts/orderContext/orderContext";
+import { useOrderData } from "../../contexts/orderContext";
 import "./css/CouponModal.css";
 
 const COUPONS = [
@@ -9,7 +9,7 @@ const COUPONS = [
 ];
 
 export function CouponModal({ setCouponModal }) {
-  const { couponValue, setCouponValue } = useOrder();
+  const { couponValue, setCouponValue } = useOrderData();
   const [input, setInput] = useState(couponValue);
 
   return (

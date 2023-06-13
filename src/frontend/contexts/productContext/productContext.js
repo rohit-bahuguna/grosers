@@ -46,7 +46,7 @@ const ProductProvider = ({ children }) => {
 	}, []);
 	return (
 		<productContext.Provider
-			value={{ ...state, dispatchData: dispatch, changeTitle }}>
+			value={{ ...state, dispatchProductData: dispatch, changeTitle }}>
 			{children}
 		</productContext.Provider>
 	);

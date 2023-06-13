@@ -9,28 +9,23 @@ import {
 import './css/ProductCard.css';
 import { toast } from 'react-toastify';
 import { BsCartCheck } from "react-icons/bs"
-import { AiOutlineShoppingCart, AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineShoppingCart, AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useCartData } from '../../contexts/cartContext/cartContext';
-import { useAuth } from '../../contexts/AuthContext/authContext';
+import { useAuthData } from '../../contexts/AuthContext/authContext';
+import { useWishlistData } from '../../contexts/wishlistContext';
 
 export function ProductCard({ product }) {
-	const { cart, wishlist, addProductToCart } = useCartData();
+	const { cart, addProductToCart } = useCartData();
+	const { wishlist, addProductToWishlist, removeProductFromWishlist } = useWishlistData()
 	const [btnDisabled, setBtnDisabled] = useState(false);
-	const { token } = useAuth();
+	const { token } = useAuthData();
 	const navigate = useNavigate();
-
+	console.log(wishlist);
 	const {
 		id,
-		category,
-		subCategoryName,
+		_id,
 		title,
 		price,
-		inStock,
-		soldBy,
-		description,
-		Brand,
-		Manufacturer,
-		foodType,
 		quantity,
 		scale,
 		image
@@ -47,30 +42,25 @@ export function ProductCard({ product }) {
 			: navigate('/login');
 	};
 
-	// const wishlistHandler = () => {
-	// 	token
-	// 		? isInWishlist
-	// 			? removeFromWishlist(id, dataDispatch, token, toast)
-	// 			: addToWishlist(dataDispatch, product, token, toast)
-	// 		: navigate('/login');
-	// };
-
+	const wishlistHandler = () => {
+		token
+			? isInWishlist
+				? removeProductFromWishlist(_id, token)
+				: addProductToWishlist(product, token)
+			: navigate('/login');
+	};
+	//console.log("isInWishlist", wishlist);
 	return (
 		<div key={id} className="product-card">
-			<AiOutlineHeart className="wishlist-icon" />
+			{isInWishlist ? <AiFillHeart className=' inWishlist-icon' onClick={wishlistHandler} /> : <AiOutlineHeart className="wishlist-icon " onClick={wishlistHandler} />}
+
 			<img
 				className="card-img"
 				src={image}
 				alt={title}
 				onClick={() => navigate(`/product-details/${id}`)}
 			/>
-			{/* {isBestSeller && <span className="card-badge">Best Seller</span>} */}
-			{/* <span
-				role="button"
-				className={`wishlist-icon ${isInWishlist ? `wishlist-toggle` : ``}`}>
-				{/* onClick={() => wishlistHandler()} 
-				
-			</span> */}
+
 
 			<div className="card-info">
 				<div className="">
@@ -88,8 +78,8 @@ export function ProductCard({ product }) {
 					<p className="final-price">
 						₹{price}
 					</p>
-					<p className="actual-price">₹100</p>
-					<p className="off-percentage">45% OFF</p>
+					<p className="actual-price">₹{product.originalPrice}</p>
+					<p className="off-percentage">{product.percentageOff}% OFF</p>
 				</div>
 			</div>
 			<button

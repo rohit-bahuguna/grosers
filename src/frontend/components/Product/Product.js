@@ -1,24 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./css/Product.css";
 import { ProductCard } from "./ProductCard";
 import { ProductFilterBar } from "./ProductFilterBar";
 import { filterDataBySubCatagories, filterDataByCatagory, searchProduct, sortData } from "../../utils";
-
 import { useProductData } from "../../contexts/productContext/productContext";
 import Layout from "../common/Layout"
-import { useParams } from "react-router-dom";
+
 
 export function ProductListing() {
-  const { category } = useParams()
   const {
     sortBy,
     priceRange,
-    categories,
     sortByRating,
     products,
-    cart,
-    wishlist,
-    address,
     search,
     selectedCategory,
     selectedSubCategories

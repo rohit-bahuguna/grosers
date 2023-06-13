@@ -9,10 +9,21 @@ import { formatDate } from "../utils/authUtils";
 export const users = [
   {
     _id: uuid(),
-    firstName: "Adarsh",
-    lastName: "Balika",
-    email: "adarshbalika@gmail.com",
-    password: "adarshbalika",
+    name: "Rohit Bahuguna",
+    email: "rohitbahuguna.work@gmail.com",
+    password: "iamrohitbahuguna",
+    addresses: [
+      {
+        _id: uuid(),
+        houseNumber: 32,
+        name: "Bahuguna Niwash",
+        street: "Aadrash colony",
+        city: "Nainital",
+        state: "Uttarakhand",
+        country: "India",
+        pinCode: "263135"
+      }
+    ],
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },

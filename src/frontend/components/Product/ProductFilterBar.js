@@ -8,7 +8,7 @@ const STARS = [1, 2, 3, 4];
 
 export function ProductFilterBar() {
 	const {
-		dispatchData,
+		dispatchProductData,
 		sortBy,
 		priceRange,
 		sortByRating,
@@ -17,7 +17,7 @@ export function ProductFilterBar() {
 	} = useProductData();
 
 	const changeHandler = (typeOfDispatch, typeOfAction, e) => {
-		dispatchData({
+		dispatchProductData({
 			type: typeOfDispatch,
 			payload: typeOfAction
 		});

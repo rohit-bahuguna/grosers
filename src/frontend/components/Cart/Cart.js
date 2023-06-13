@@ -22,7 +22,7 @@ export function Cart() {
     <Layout>
       <div className="cart-container">
         <div className="cart-main-container">
-          {/* <h3>MY CART {isCartHasItem && `(${cart.length})`}</h3> */}
+
           <div className="cart-manage">
             <div className="cart-manage-item">
               {isCartHasItem ? (

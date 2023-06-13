@@ -8,7 +8,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { ACTION_TYPE } from '../../utils';
 
 const HomePage = () => {
-  const { categories, dispatchData } = useProductData();
+  const { categories, dispatchProductData } = useProductData();
 
   const navigate = useNavigate();
   const categoryFilter = () => { };
@@ -16,7 +16,7 @@ const HomePage = () => {
     'essentials.jpg', 'Back-to-school_Banner_1500x300.gif', 'healtly.jpg', "mangomadness.jpg", 'supersaver.jpg'
   ])
   const navigateToProductPage = (categoryName) => {
-    dispatchData({
+    dispatchProductData({
       type: ACTION_TYPE.SELECTED_CATEGORY,
       payload: categoryName
     });

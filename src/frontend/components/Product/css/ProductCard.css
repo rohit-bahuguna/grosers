@@ -38,7 +38,15 @@
 }
 
 .wishlist-icon:hover {
-	color: var(--danger);
+	color: red;
+}
+
+.inWishlist-icon {
+	color: red;
+	align-self: end;
+	z-index: 100;
+	margin: 0.5rem 1rem 0rem 0rem;
+	font-size: 2rem;
 }
 
 .wishlist-toggle {

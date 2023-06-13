@@ -33,7 +33,7 @@ export const clearCart = async (cart, token) => {
 };
 export const updateQtyFromCart = async (id, token, actionType) => {
 	return await axios.post(
-		`api/user/cart/${id}`,
+		`/api/user/cart/${id}`,
 		{
 			action: {
 				type: actionType === 'INC_QTY' ? 'increment' : 'decrement'

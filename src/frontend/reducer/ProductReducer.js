@@ -7,7 +7,7 @@ export const initialState = {
 	sortByRating: '',
 	products: [],
 
-	address: [],
+
 	search: '',
 	selectedCategory: '',
 	selectedSubCategories: []
@@ -25,13 +25,14 @@ export function productReducer(state, action) {
 			};
 
 		case ACTION_TYPE.INITIAl_PRODUCTS:
-			return { ...state, products: payload };
-		//   .map(product => ({
-		// 	...product,
-		// 	percentageOff: calcPercentage(product.price, product.originalPrice)
-		// }))
-		case ACTION_TYPE.INITIAl_ADDRESS:
-			return { ...state, address: payload };
+
+			return {
+				...state, products: payload.map(product => ({
+					...product,
+					percentageOff: calcPercentage(product.price, product.originalPrice)
+				}))
+			};
+
 		case ACTION_TYPE.PRICE_RANGE:
 			return { ...state, priceRange: payload };
 		case ACTION_TYPE.SEARCH:
@@ -81,10 +82,9 @@ export function productReducer(state, action) {
 				categories: updatedCategory
 			};
 
-		case ACTION_TYPE.ADDRESS:
-			return { ...state, address: [...payload] };
+
 		case ACTION_TYPE.LOG_OUT:
-			return { ...state, address: [] };
+			return { ...state };
 
 		case ACTION_TYPE.CLEAR_FILTER:
 

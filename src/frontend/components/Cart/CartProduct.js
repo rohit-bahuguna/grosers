@@ -6,19 +6,21 @@ import { calcPercentage, isProductInWishlist } from "../../utils/cartUtils";
 // import { addToWishlist, removeFromCart, updateQtyFromCart } from "../../../services";
 import { useProductData } from "../../contexts/productContext/productContext";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { useCartData } from "../../contexts/cartContext/cartContext";
+import { useAuthData } from "../../contexts/AuthContext/authContext";
 
 export function CartProduct({ product }) {
-  const { dataDispatch, wishlist } = useProductData();
-
+  const { token } = useAuthData();
+  const { dataDispatch, wishlist, updateProductQtyFromCart, removeProductFromCart } = useCartData()
   const navigate = useNavigate();
 
-  const isInWishlist = isProductInWishlist(wishlist, product._id);
+  const isInWishlist = isProductInWishlist(wishlist, product.id);
 
-  // const cartClickHandler = (type) => updateQtyFromCart(product._id, dataDispatch, token, type);
+  const cartClickHandler = (type) => updateProductQtyFromCart(product._id, token, type);
 
   // const moveToWishlistHandler = () => {
   //   addToWishlist(dataDispatch, product, token, toast);
-  //   removeFromCart(product._id, dataDispatch, token, toast);
+  //   removeProductFromCart(product._id, dataDispatch, token, toast);
   // };
 
   return (
@@ -44,7 +46,7 @@ export function CartProduct({ product }) {
 
             <button
               className="qty-btn"
-              // onClick={() => product.qty > 1 && cartClickHandler("DEC_QTY")}
+              onClick={() => product.qty > 1 && cartClickHandler("DEC_QTY")}
               disabled={product.qty > 1 ? false : true}
             >
               <AiOutlineMinus className="minus" />
@@ -52,7 +54,7 @@ export function CartProduct({ product }) {
             <span className="qty-count">{product.qty}</span>
             <button
               className="qty-btn"
-            //onClick={() => cartClickHandler("INC_QTY")}
+              onClick={() => cartClickHandler("INC_QTY")}
             >
               <AiOutlinePlus className="add" />
             </button>
@@ -61,9 +63,9 @@ export function CartProduct({ product }) {
         <div>
           <button
             className="remove-btn"
-          // onClick={() => {
-          //   removeFromCart(product._id, dataDispatch, token, toast);
-          // }}
+            onClick={() => {
+              removeProductFromCart(product._id, token);
+            }}
           >
             REMOVE
           </button>

@@ -1,19 +1,15 @@
 import axios from "axios";
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useReducer } from "react";
 import { logInService, signUpService } from "../../services/API/Auth/auth_API";
 import { ACTION_TYPE } from "../../utils";
 import { useProductData } from "../productContext/productContext";
+import { authReducer, initialState } from "../../reducer/authReducer";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const { dispatchData } = useProductData();
-  const localStorageToken = JSON.parse(localStorage.getItem("login"));
 
-  const [token, setToken] = useState(localStorageToken?.token);
-  const localStorageUser = JSON.parse(localStorage.getItem("user"));
-  const [user, setUser] = useState(localStorageUser?.user);
-
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
 
   const loginUser = async (userData) => {
@@ -21,20 +17,31 @@ const AuthProvider = ({ children }) => {
     if (userData) {
       try {
         const {
-          data: { foundUser, encodedToken },
-          status,
+          data: { foundUser, encodedToken }
+
         } = await logInService(userData);
 
-        if (status === 200) {
-          localStorage.setItem("login", JSON.stringify({ token: encodedToken }));
-          setToken(encodedToken);
-          localStorage.setItem("user", JSON.stringify({ user: foundUser }));
-          setUser(foundUser);
-          dispatchData({
-            type: ACTION_TYPE.INITIAl_ADDRESS,
-            payload: foundUser.address,
-          });
-        }
+
+        localStorage.setItem("login", JSON.stringify({ token: encodedToken }));
+        localStorage.setItem("user", JSON.stringify({ user: { ...foundUser, status: true } }));
+
+
+
+        dispatch({
+          type: ACTION_TYPE.SET_TOKEN,
+          payload: encodedToken,
+        });
+        dispatch({
+          type: ACTION_TYPE.SET_USER,
+          payload: { ...foundUser, status: true }
+        });
+
+        dispatch({
+          type: ACTION_TYPE.INITIAl_ADDRESS,
+          payload: foundUser.addresses,
+        });
+
+
       } catch (error) {
         console.log("Error in login user", error);
       }
@@ -48,36 +55,34 @@ const AuthProvider = ({ children }) => {
         status,
       } = await signUpService(userData);
       if (status === 201) {
+
         localStorage.setItem("signup", JSON.stringify({ token: encodedToken }));
-        setToken(encodedToken);
-        localStorage.setItem("user", JSON.stringify({ user: createdUser }));
-        setUser(createdUser);
-        dispatchData({
-          type: ACTION_TYPE.INITIAl_ADDRESS,
-          payload: createdUser.address,
+        localStorage.setItem("user", JSON.stringify({ user: { ...createdUser, status: true } }));
+
+        dispatch({
+          type: ACTION_TYPE.SET_TOKEN,
+          payload: encodedToken,
         });
+        dispatch({
+          type: ACTION_TYPE.SET_USER,
+          payload: { ...createdUser, status: true }
+        });
+
       }
     } catch (error) {
       console.log("Error in login user", error);
     }
   };
 
-  useEffect(() => {
-    if (token) {
-      dispatchData({
-        type: ACTION_TYPE.INITIAl_ADDRESS,
-        payload: user.address,
-      });
-    }
-  }, []);
+
 
   return (
-    <AuthContext.Provider value={{ token, setToken, loginUser, signUpUser, user, setUser }}>
+    <AuthContext.Provider value={{ ...state, loginUser, signUpUser, dispatchAuthData: dispatch }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-const useAuth = () => useContext(AuthContext);
+const useAuthData = () => useContext(AuthContext);
 
-export { useAuth, AuthProvider };
+export { useAuthData, AuthProvider };

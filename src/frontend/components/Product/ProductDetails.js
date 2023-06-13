@@ -5,41 +5,52 @@ import Layout from "../common/Layout"
 import { isProductInCart, isProductInWishlist } from "../../utils/cartUtils";
 import { toast } from "react-toastify";
 import { useProductData } from "../../contexts/productContext/productContext";
-import { AiOutlineHeart, AiFillTag, AiOutlineShoppingCart, AiFillStar } from "react-icons/ai";
+import { AiOutlineHeart, AiFillTag, AiOutlineShoppingCart, AiFillStar, AiFillHeart } from "react-icons/ai";
+import { useAuthData } from "../../contexts/AuthContext/authContext";
+import { useCartData } from "../../contexts/cartContext/cartContext";
+import { useWishlistData } from "../../contexts/wishlistContext";
 
 export function ProductDetails() {
   const { productId } = useParams();
   const navigate = useNavigate();
   const [btnDisabled, setBtnDisabled] = useState(false);
   const [btnWishlistDisabled, setWishlistBtnDisabled] = useState(false);
-  // const { token } = useAuth();
-  const { products, cart, dataDispatch, wishlist, changeTitle } = useProductData();
+  // const { token } = useAuthData();
+  const { products, changeTitle } = useProductData();
+  const { cart, addProductToCart } = useCartData();
+  const { wishlist, addProductToWishlist, removeProductFromWishlist } = useWishlistData()
+  const { token } = useAuthData();
 
   const product = products?.find((product) => {
     return product.id === productId;
   });
 
-  const isInCart = isProductInCart(cart, product?._id);
-  const isInWishlist = isProductInWishlist(wishlist, product?._id);
+  const { _id, id, image, title, rating, description, originalPrice, percentageOff, price, Brand, Manufacturer, soldBy, quantity, scale, category, countryOfOrigin, foodType } = product
 
-  // const addToCartHandler = () => {
-  //   token
-  //     ? isInCart
-  //       ? navigate("/cart")
-  //       : addToCart(dataDispatch, product, token, toast, setBtnDisabled)
-  //     : navigate("/login");
-  // };
+  const isInCart = isProductInCart(cart, id);
+  const isInWishlist = isProductInWishlist(wishlist, id);
 
-  // const addToWishlistHandler = () => {
-  //   token
-  //     ? isInWishlist
-  //       ? navigate("/wishlist")
-  //       : addToWishlist(dataDispatch, product, token, toast, setWishlistBtnDisabled)
-  //     : navigate("/login");
-  // };
+  console.log(isInWishlist);
+  const addToCartHandler = () => {
+    token
+      ? isInCart
+        ? navigate('/cart')
+        : addProductToCart(product, token)
+      : navigate('/login');
+  };
+
+
+  const wishlistHandler = () => {
+    token
+      ? isInWishlist
+        ? removeProductFromWishlist(_id, token)
+        : addProductToWishlist(product, token)
+      : navigate('/login');
+  };
+
   useEffect(() => {
-    changeTitle(product?.title)
-  })
+    changeTitle(title)
+  }, [])
 
   // if (products.length === 0) {
   //   setLoader(() => true);
@@ -53,26 +64,20 @@ export function ProductDetails() {
 
         <div className="details-left">
 
-          <img className="details-img" src={product?.image} alt="" />
+          <img className="details-img" src={image} alt="" />
 
           <button
             className="details-add-to-cart"
-            // onClick={() => addToCartHandler()}
+            onClick={() => addToCartHandler()}
             disabled={btnDisabled}
           >
+
 
             <AiOutlineShoppingCart className="details-cart-icon" /> {isInCart ? "Go to Cart" : "Add to Cart"}
           </button>
 
 
-          {/* <button
-              className="btn outlined-default  wishlist-btn"
-              // onClick={() => addToWishlistHandler()}
-              disabled={btnWishlistDisabled}
-            >
-              <i className="fa fa-heart-o" aria-hidden="true"></i>{" "}
-              {isInWishlist ? "Go to Wishlist" : "Add to Wishlist"}
-            </button> */}
+
 
         </div>
 
@@ -81,18 +86,18 @@ export function ProductDetails() {
             <div className="details-title">
 
               <div>
-                <h2 className="details-title-header">{product?.title}</h2>
+                <h2 className="details-title-header">{title}</h2>
                 <p className="star-ratings">
-                  {product?.rating} 4.9 <AiFillStar className="star" />
+                  {rating} 4.9 <AiFillStar className="star" />
 
                 </p>
               </div>
-              <AiOutlineHeart className="wishlist-icon" />
+              {isInWishlist ? <AiFillHeart className=' inWishlist-icon' onClick={wishlistHandler} /> : <AiOutlineHeart className="wishlist-icon " onClick={wishlistHandler} />}
             </div>
 
-            <div className="price"> <span className="MRP">M.R.P: ₹{product?.price}</span > <span>(Incl. of all taxes) </span> <span>(₹{product?.price / 4}/250g)</span></div>
-            {/* <p className="actual-price">₹{product?.originalPrice}</p> */}
-            {/* <p className="price-percentage">{product.percentageOff}% OFF</p> */}
+            <div className="price"> <span className="MRP">M.R.P: ₹{price}</span > <span>(Incl. of all taxes) </span> <span>(₹{price / 4}/250g)</span></div>
+            <p className="actual-price">₹{originalPrice}</p>
+            <p className="price-percentage">{percentageOff}% OFF</p>
           </div>
 
           <div className="msg">
@@ -109,7 +114,7 @@ export function ProductDetails() {
           </div>
           <div className="description">
             <h2>Description</h2>
-            <p className="description-info">{product?.description}</p>
+            <p className="description-info">{description}</p>
           </div>
           <div className="product-info">
             <h2 className="product-info-heading">Product Information</h2>
@@ -118,20 +123,20 @@ export function ProductDetails() {
               <tbody>
                 <tr>
                   <td>Brand</td>
-                  <td><p>{product?.Brand}</p></td>
+                  <td><p>{Brand}</p></td>
                 </tr>
                 <tr> <td>Manufacturer</td>
-                  <td><p>{product?.Manufacturer}</p></td> </tr>
+                  <td><p>{Manufacturer}</p></td> </tr>
                 <tr> <td>Category</td>
-                  <td><p>{product?.category}</p></td> </tr>
+                  <td><p>{category}</p></td> </tr>
                 <tr> <td> Sold By</td>
-                  <td> <p>{product?.soldBy}</p></td> </tr>
+                  <td> <p>{soldBy}</p></td> </tr>
                 <tr> <td> Food Type</td>
-                  <td> <p>{product?.foodType}</p></td> </tr>
+                  <td> <p>{foodType}</p></td> </tr>
                 <tr> <td>Country of Origin</td>
-                  <td><p>{product?.countryOfOrigin}</p></td> </tr>
+                  <td><p>{countryOfOrigin}</p></td> </tr>
                 <tr> <td>  Net Quantity</td>
-                  <td><p>{product?.quantity} {product?.scale}</p></td> </tr>
+                  <td><p>{quantity} {scale}</p></td> </tr>
               </tbody>
             </table>
 

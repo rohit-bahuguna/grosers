@@ -9,6 +9,10 @@ import SignUp from "./frontend/components/Auth/SignUp";
 import { ProductListing } from "./frontend/components/Product/Product";
 import { ProductDetails } from "./frontend/components/Product/ProductDetails";
 import { Cart } from "./frontend/components";
+import { Checkout } from "./frontend/components/Checkout/Checkout";
+import { OrderSummary } from "./frontend/components/OrderSummary/OrderSummary";
+import { UserProfile } from "./frontend/components/UserProfile/UserProfile";
+import { Wishlist } from "./frontend/components/Wishlist/Wishlist";
 
 function App() {
   return (
@@ -22,7 +26,10 @@ function App() {
         <Route path="/products/:category" element={<ProductListing />} />
         <Route path="/product-details/:productId" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
-
+        <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/order-summary" element={<OrderSummary />} />
+        <Route path="/user-profile" element={<UserProfile />} />
       </Routes>
     </>
   );

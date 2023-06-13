@@ -29,6 +29,7 @@ const CartProvider = ({ children }) => {
         const {
             data: { cart },
         } = await removeFromCart(id, token)
+        console.log("removed", cart);
         dispatch({
             type: ACTION_TYPE.REMOVE_FROM_CART,
             payload: cart,
@@ -46,6 +47,7 @@ const CartProvider = ({ children }) => {
         const {
             data: { cart },
         } = await updateQtyFromCart(id, token, actionType)
+        console.log(cart);
         dispatch({
             type: ACTION_TYPE.UPDATE_QTY_IN_CART,
             payload: cart,
@@ -54,7 +56,7 @@ const CartProvider = ({ children }) => {
 
     return (
         <cartContext.Provider
-            value={{ ...state, dispatchData: dispatch, addProductToCart, removeProductFromCart, clearCartProducts, updateProductQtyFromCart }}>
+            value={{ ...state, dispatchCartData: dispatch, addProductToCart, removeProductFromCart, clearCartProducts, updateProductQtyFromCart }}>
             {children}
         </cartContext.Provider>
     );

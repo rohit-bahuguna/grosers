@@ -8,7 +8,7 @@ import { validateUserData } from "../../services/validation/signInValidater";
 import { signInService } from "../../services/API/Auth/auth_API";
 import "./auth.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext/authContext";
+import { useAuthData } from "../../contexts/AuthContext/authContext";
 const SignUp = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,7 +22,7 @@ const SignUp = () => {
   });
   const [error, setError] = useState(initialErrors);
   const [loading, setLoading] = useState(false);
-  const { signUpUser, token } = useAuth()
+  const { signUpUser, token } = useAuthData()
   const getUserData = (e) => {
     setError(initialErrors);
     setUserData({ ...userData, [e.target.name]: e.target.value });

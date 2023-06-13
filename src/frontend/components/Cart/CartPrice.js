@@ -1,23 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useOrder } from "../../contexts/orderContext/orderContext";
+import { useOrderData } from "../../contexts/orderContext";
 import { ACTION_TYPE, getPriceDetails } from "../../utils";
-import { useProductData } from "../../contexts/productContext/productContext";
+import { useAuthData } from "../../contexts/AuthContext/authContext";
 import { useCartData } from "../../contexts/cartContext/cartContext";
 
 export function CartPrice({ setCouponModal }) {
-  const { address } = useProductData();
-  const { cart } = useCartData()
-  const { couponValue, setCouponValue, dispatch } = useOrder();
   const navigate = useNavigate();
-
+  const { addresses } = useAuthData();
+  const { cart } = useCartData()
+  const { couponValue, setCouponValue, dispatch } = useOrderData();
+  console.log(cart);
   const { price, discount } = getPriceDetails(cart);
   const coupon = price
-    ? Math.abs((parseFloat(price - 0) / 100) * parseFloat(couponValue.value))
+    ? Math.abs((parseFloat(price - discount) / 100) * parseFloat(couponValue.value))
     : 0;
-  const totalAmt = parseFloat(price - 0 - coupon).toFixed(2);
-  const totalDiscount = parseFloat(0 + coupon).toFixed(2);
+  const totalAmt = parseFloat(price - discount - coupon).toFixed(2);
+  const totalDiscount = parseFloat(discount + coupon).toFixed(2);
 
   const checkoutHandler = () => {
     dispatch({
@@ -26,7 +26,7 @@ export function CartPrice({ setCouponModal }) {
     });
     dispatch({
       type: ACTION_TYPE.ORDER_ADDRESS,
-      payload: address[0],
+      payload: addresses[0],
     });
     navigate("/checkout");
   };

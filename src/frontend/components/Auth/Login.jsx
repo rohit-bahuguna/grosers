@@ -6,10 +6,10 @@ import { validateUserData } from "../../services/validation/signInValidater";
 
 import "./auth.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext/authContext";
+import { useAuthData } from "../../contexts/AuthContext/authContext";
 const LogIn = () => {
 
-  const { loginUser, token } = useAuth()
+  const { loginUser, token } = useAuthData()
   const initialErrors = {
     passwordError: { message: "", error: false },
     emailError: { message: "", error: false },
@@ -101,8 +101,8 @@ const LogIn = () => {
             <Button
               title={"Sign In as Guest"}
               callback={() => signInAsGuest({
-                email: "adarshbalika@gmail.com",
-                password: "adarshbalika",
+                email: "rohitbahuguna.work@gmail.com",
+                password: "iamrohitbahuguna",
               })}
               style={"signinguest"}
             />
