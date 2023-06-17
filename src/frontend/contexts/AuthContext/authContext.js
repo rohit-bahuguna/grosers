@@ -2,7 +2,6 @@ import axios from "axios";
 import { createContext, useContext, useState, useEffect, useReducer } from "react";
 import { logInService, signUpService } from "../../services/API/Auth/auth_API";
 import { ACTION_TYPE } from "../../utils";
-import { useProductData } from "../productContext/productContext";
 import { authReducer, initialState } from "../../reducer/authReducer";
 
 const AuthContext = createContext();

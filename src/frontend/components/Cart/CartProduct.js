@@ -1,33 +1,38 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import { calcPercentage, isProductInWishlist } from "../../utils/cartUtils";
-// import { addToWishlist, removeFromCart, updateQtyFromCart } from "../../../services";
-import { useProductData } from "../../contexts/productContext/productContext";
+
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useCartData } from "../../contexts/cartContext/cartContext";
 import { useAuthData } from "../../contexts/AuthContext/authContext";
+import { useWishlistData } from "../../contexts/wishlistContext";
 
 export function CartProduct({ product }) {
-  const { token } = useAuthData();
-  const { dataDispatch, wishlist, updateProductQtyFromCart, removeProductFromCart } = useCartData()
+
   const navigate = useNavigate();
+  const { token } = useAuthData();
+  const { wishlist, updateProductQtyFromCart, removeProductFromCart } = useCartData()
+  const { addProductToWishlist } = useWishlistData()
+
 
   const isInWishlist = isProductInWishlist(wishlist, product.id);
 
-  const cartClickHandler = (type) => updateProductQtyFromCart(product._id, token, type);
+  const incOrDecProductQuantity = (type) => updateProductQtyFromCart(product._id, token, type);
 
-  // const moveToWishlistHandler = () => {
-  //   addToWishlist(dataDispatch, product, token, toast);
-  //   removeProductFromCart(product._id, dataDispatch, token, toast);
-  // };
+  const moveToWishlistFromCart = () => {
+    addProductToWishlist(product, token);
+    removeProductFromCart(product._id, token);
+  };
 
   return (
     <div key={product._id} className="card horizontal-container">
       <div className="card-horizontal">
-        <img className="card-img horizontal-img" src={product.image} alt={product.title} />
 
+        <Link to={`/product-details/${product.id}`}>
+          <img className="card-img horizontal-img" src={product.image} alt={product.title} />
+        </Link>
       </div>
       <div className="card-right">
         <div className="card-info">
@@ -46,7 +51,7 @@ export function CartProduct({ product }) {
 
             <button
               className="qty-btn"
-              onClick={() => product.qty > 1 && cartClickHandler("DEC_QTY")}
+              onClick={() => product.qty > 1 && incOrDecProductQuantity("DEC_QTY")}
               disabled={product.qty > 1 ? false : true}
             >
               <AiOutlineMinus className="minus" />
@@ -54,7 +59,7 @@ export function CartProduct({ product }) {
             <span className="qty-count">{product.qty}</span>
             <button
               className="qty-btn"
-              onClick={() => cartClickHandler("INC_QTY")}
+              onClick={() => incOrDecProductQuantity("INC_QTY")}
             >
               <AiOutlinePlus className="add" />
             </button>
@@ -71,7 +76,7 @@ export function CartProduct({ product }) {
           </button>
           <button
             className="wishlist-btn"
-          //  onClick={() => (isInWishlist ? navigate("/wishlist") : moveToWishlistHandler())}
+            onClick={() => (isInWishlist ? navigate("/wishlist") : moveToWishlistFromCart())}
           >
             {isInWishlist ? "ALREADY IN WISHLIST" : "MOVE TO WISHLIST"}
           </button>

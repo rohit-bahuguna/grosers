@@ -1,8 +1,6 @@
 .hero-logo {
 	font-size: 2.8rem;
 	color: rgb(255, 128, 0);
-	text-decoration: none;
-	list-style: none;
 }
 
 .navigation {
@@ -72,6 +70,7 @@
 
 .nav-heart {
 	font-size: 2rem;
+	color: white;
 }
 
 .nav-cart {
@@ -160,7 +159,7 @@
 .total-cart {
 	font-size: 1.5rem;
 	color: #131921;
-	background-color: white;
+	background-color: rgb(164, 223, 247);
 	border-radius: 50%;
 
 	text-align: center;
@@ -169,6 +168,20 @@
 	top: 0.4rem;
 	right: 2.5rem;
 }
+
+.total-heart {
+	font-size: 1.5rem;
+	color: #131921;
+	background-color: rgb(234, 3, 3);
+	border-radius: 50%;
+	color: white;
+	text-align: center;
+	width: 2rem;
+	position: absolute;
+	top: 0.4rem;
+	right: 6.3rem;
+}
+
 @media screen and (max-width: 1000px) {
 	.nav-search {
 		width: 25rem;

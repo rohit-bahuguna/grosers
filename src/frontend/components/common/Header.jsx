@@ -13,20 +13,21 @@ import { useCartData } from "../../contexts/cartContext/cartContext"
 import { useAuthData } from '../../contexts/AuthContext/authContext';
 import { useProductData } from '../../contexts/productContext/productContext';
 import { ACTION_TYPE } from '../../utils';
+import { useWishlistData } from '../../contexts/wishlistContext';
 export const Header = () => {
   const location = useLocation();
   const { cart } = useCartData()
+  const { wishlist } = useWishlistData()
   const { dispatchProductData } = useProductData()
-
+  console.log("wishlist", wishlist.length);
   const [input, setInput] = useState('');
   const [searchData, setSearchData] = useState([]);
-  const { user, dispatchAuthData } = useAuthData()
+  const { user, dispatchAuthData, addresses } = useAuthData()
   const navigate = useNavigate();
   const [showSearchOutputModal, setShowOutputModal] = useState(false);
+  console.log(addresses[0])
 
-  if (location.pathname === '/404') {
-    return null;
-  }
+
   return (
     <nav className="navigation">
       <div className='nav-logo-container'>
@@ -36,9 +37,13 @@ export const Header = () => {
         <p>Grosery at your door step</p>
       </div>
       <div className='nav-address'>
-        <p>Deliver to</p>
+        <p> {addresses.length > 0 ? "Delivering to" : "Deliver to"}</p>
 
-        <p> <CiLocationOn className='nav-location' /> Select your address</p>
+
+        {
+          addresses.length > 0 ? <p> <CiLocationOn className='nav-location' /> {addresses[0]?.street} ,  {addresses[0]?.city} </p> : <p> <CiLocationOn className='nav-location' /> Select your address</p>
+        }
+
       </div>
       <div className='nav-search'>
 
@@ -92,10 +97,15 @@ export const Header = () => {
             })
 
           }}>Logout</button> : <Link to="/login"><button className='nav-login'>Login</button></Link>}
-          <Link to="/wishlist">
-            <AiOutlineHeart className='nav-heart' />
-          </Link>
 
+          <div>
+            <Link to="/wishlist">
+              <AiOutlineHeart className='nav-heart' />
+            </Link>
+            {
+              wishlist.length > 0 && <div className='total-heart'>{wishlist.length}</div>
+            }
+          </div>
           <div>
             <Link to="/cart">
               <AiOutlineShoppingCart className='nav-cart' />

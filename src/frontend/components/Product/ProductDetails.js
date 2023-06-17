@@ -12,6 +12,7 @@ import { useWishlistData } from "../../contexts/wishlistContext";
 
 export function ProductDetails() {
   const { productId } = useParams();
+  // console.log("product", productId);
   const navigate = useNavigate();
   const [btnDisabled, setBtnDisabled] = useState(false);
   const [btnWishlistDisabled, setWishlistBtnDisabled] = useState(false);
@@ -21,9 +22,11 @@ export function ProductDetails() {
   const { wishlist, addProductToWishlist, removeProductFromWishlist } = useWishlistData()
   const { token } = useAuthData();
 
-  const product = products?.find((product) => {
-    return product.id === productId;
+  const product = products?.find((item) => {
+    return item.id === productId;
   });
+
+
 
   const { _id, id, image, title, rating, description, originalPrice, percentageOff, price, Brand, Manufacturer, soldBy, quantity, scale, category, countryOfOrigin, foodType } = product
 
@@ -43,7 +46,7 @@ export function ProductDetails() {
   const wishlistHandler = () => {
     token
       ? isInWishlist
-        ? removeProductFromWishlist(_id, token)
+        ? removeProductFromWishlist(id, token)
         : addProductToWishlist(product, token)
       : navigate('/login');
   };
